@@ -1,0 +1,22 @@
+#+title: Hugo
+#+date: [2023-12-13 Wed]
+
+* blog with hugo
+** blog with hugo
+
+get started video - https://www.youtube.com/watch?v=LIFvgrRxdt4&ab_channel=RyanSchachte
+
+second video - https://www.youtube.com/watch?v=hjD9jTi_DQ4&t=2225s&ab_channel=EnvatoTuts%2B
+
+** commands
+- hugo new site nameofthesite
+- cd themes git clone theme
+- change config.toml to config.yml
+- hugo server - works
+- hugo new posts/firstpost.md
+- git submodule add -b master https://github.com/arvydasg/arvydasg.github.io.git
+  public (public where file will be stored)
+- hugo -t hugo-PaperMod
+- cd public
+- git remote -v (origin is not what you expected ;) its arvydas.github.io
+- push public folder and site is live!

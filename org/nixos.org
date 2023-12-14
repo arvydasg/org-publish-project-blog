@@ -1,0 +1,120 @@
+#+title: NixOS
+#+date: [2023-12-13 Wed]
+
+* Why NixOS
+AFTER you reinstall your computer - to install the DEV environment, all you
+have to take with you is =/etc/nixos/configuration.nix= file, everything is
+described in it. Amazing!
+
+Avoid long reinstall & config process
+
+* Why NixOS by others
+
+- https://github.com/hlissner/dotfiles
+- https://github.com/terlar/nix-config
+
+* Documentation
+
+- nixos github repo - https://github.com/nix-community/NixOS-WSL
+- nixos manual - https://nixos.org/manual/nix/stable/
+
+* Installation on WSL
+
+Steps described here:
+
+https://github.com/nix-community/NixOS-WSL
+
+But basically download nixos-wsl.tar.gz into your windows /Download folder
+
+Then in CMD run(while in /Downloads folder):
+#+begin_src bash
+  wsl --import NixOS .\NixOS\ nixos-wsl.tar.gz --version 2
+#+end_src
+
+check if it was really installed:
+#+begin_src bash
+  wsl -l -v
+#+end_src
+
+You should see NixOS listed. Now we can run nixos:
+#+begin_src bash
+  wsl -d NixOS
+#+end_src
+
+After the initial installation, you need to update your channels once, to be
+able to use =nixos-rebuild=:
+#+begin_src bash
+  sudo nix-channel --add https://nixos.org/channels/nixos-23.11 nixos
+  sudo nix-channel --update
+#+end_src
+
+* Configure the installation over emacs
+
+Enter nix-shell to use emacs(it does not get installed on the system, just
+[[https://nix.dev/tutorials/first-steps/ad-hoc-shell-environments][TEMPORARILY]] FROM NIXOS CACHE?). So I can then modify the
+=/etc/nixos/configuration.nix= file.
+#+begin_src bash
+  nix-shell -p emacs29
+#+end_src
+
+Then let's run emacs in nix-shell(run with sudo)
+#+begin_src bash
+  sudo emacs
+#+end_src
+
+Ok now you are in emacs, but in nix-shell. If we turn off nixos now, when we
+launch it again, emacs will not be available. Only after you run =nix-shell -p
+emacs=. Let's install emacs permanetely:
+#+begin_src bash
+  sudo emacs /etc/nixos/configuration.nix
+#+end_src
+
+add these lines:
+#+begin_src nix
+  environment.systemPackages = with pkgs; [
+    emacs29
+    git
+  ];
+#+end_src
+
+We Install emacs29 because of =seq keep error message= (check in [[file:emacs.org]])
+
+after you do that, =C-d= to go back to nixos@nixos(out of nix-shell) and BUILD
+the nixos with the new changes(emacs installation).
+#+begin_src bash
+  sudo nixos-rebuild switch
+#+end_src
+
+After this runs, you should be able to use Emacs and use git!
+
+Clone the dotfiles repo:
+#+begin_src bash
+  mkdir ~/GIT
+  cd ~/GIT
+  git clone https://github.com/arvydasg/dotfiles
+  ln -s GIT/dotfiles/.emacs.d/ ~/.emacs.d
+  cd ~/.emacs.d
+  git update-index --assume-unchanged init.el
+#+end_src
+
+Try to launch emacs for all the packages to be installed.
+
+* Using your own custom nixos configuration file
+
+It suchs to not be able to edit the =/etc/nixos/configuration.nix= file over
+emacs as nixos default user. I want this file to not be owned by root, but bu
+nixos user. So what we will do is we will:
+
+#+begin_src bash
+  # delete current nixos directory
+  sudo rm -rf /etc/nixos
+  # put our config folder instead of the default one
+  sudo ln -s ~/GIT/dotfiles/nixos/ /etc/nixos
+#+end_src
+
+You are done. Should be able to edit =configuration.nix= file now.
+
+* Setting up git
+
+=Introduce yourself to git= in  . Any of those methods. Will go the personal access
+token route this time.

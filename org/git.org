@@ -1,0 +1,81 @@
+#+title: Git
+#+date: [2023-12-13 Wed]
+
+* introduce yourself to git
+** General things to do
+When on new system, you might ge this:
+
+#+begin_src bash
+  Author identity unknown
+
+  Please tell me who you are.
+
+  Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+#+end_src
+
+In my case that is:
+
+#+begin_src bash
+  git config --global user.email "azegaspa@gmail.com"
+  git config --global user.name "arvydasg"
+#+end_src
+
+** Personal access token method
+
+Then when you do a git operation(with magit or just from the terminal) you will
+be prompted for password. The password is best to get with a generated
+"personal access token" in github developer settings.
+
+I have this password written somewhere, find it.
+
+changing the token - [[https://stackoverflow.com/questions/46645843/where-to-store-my-git-personal-access-token][Explanation here]]
+
+1. git config --global --replace-all credential.helper cache
+2. git config --global credential.helper store
+3. try to push the code, enter arvydasg ir nauja token
+
+git config --list (some info about you)
+
+** ssh key method
+
+I have described it in SEB notes.
+
+** gpg key method
+
+Tarlar gave some tutorials in SEB notes.
+
+* deploy a static website with github pages
+** Create the main username.github.io page
+
+The idea is - you have lot's of html pages(or a single html page).
+
+You add it(them) to github repo which is named
+=<yourgithubusername@github.io>=. In my case -
+https://github.com/arvydasg/arvydasg.github.io.
+
+Then in =repo settings -> pages= you specify that you want master branch to be
+deployed to github pages. After a few minutes you can go to
+=<yourgithubusername@github.io>=. In my case it is https://arvydasg.github.io/.
+Wait 5 minutes, do a hard browser refresh and you should see the page.
+
+If I have a domain name, I can then specify it in repo settings as well. In my
+case it is =arvydas.dev=. You might need to do some configuration on domain
+side also to link to github. Probably [[https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site][this]] guide could help with that.
+
+** create subpages for username.github.io
+
+So you have =<yourgithubusername@github.io>= website up and running. But you
+want to deploy another page. You can do that by creating another repo(any name
+now, for example a repo called =teddybears=), repo settings -> pages and choose
+master branch, save, save and after 5 minutes or so it will display the
+contents of your teddybears repo under
+=<yourgithubusername@github.io/teddybears>=.
+
+Amazing. I have codeacademy setup this way -
+https://github.com/arvydasg/codeacademy
+
+I have also just [2023-12-12 Tue] created devnotes repo -
+https://github.com/arvydasg/devnotes and it is already live. Cool!

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Git</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet"
+href="https://cdn.simplecss.org/simple.min.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Git</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgc41d2e7">introduce yourself to git</a>
+<ul>
+<li><a href="#org7f19345">General things to do</a></li>
+<li><a href="#org21c1809">Personal access token method</a></li>
+<li><a href="#org121f99d">ssh key method</a></li>
+<li><a href="#org1d7cf0d">gpg key method</a></li>
+</ul>
+</li>
+<li><a href="#orgff09e30">deploy a static website with github pages</a>
+<ul>
+<li><a href="#org8ac15fa">Create the main username.github.io page</a></li>
+<li><a href="#org7cdb59b">create subpages for username.github.io</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc41d2e7" class="outline-2">
+<h2 id="orgc41d2e7">introduce yourself to git</h2>
+<div class="outline-text-2" id="text-orgc41d2e7">
+</div>
+<div id="outline-container-org7f19345" class="outline-3">
+<h3 id="org7f19345">General things to do</h3>
+<div class="outline-text-3" id="text-org7f19345">
+<p>
+When on new system, you might ge this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">Author identity unknown
+
+Please tell me who you are.
+
+Run
+
+git config --global user.email <span style="font-style: italic;">"you@example.com"</span>
+git config --global user.name <span style="font-style: italic;">"Your Name"</span>
+</pre>
+</div>
+
+<p>
+In my case that is:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">git config --global user.email <span style="font-style: italic;">"azegaspa@gmail.com"</span>
+git config --global user.name <span style="font-style: italic;">"arvydasg"</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org21c1809" class="outline-3">
+<h3 id="org21c1809">Personal access token method</h3>
+<div class="outline-text-3" id="text-org21c1809">
+<p>
+Then when you do a git operation(with magit or just from the terminal) you will
+be prompted for password. The password is best to get with a generated
+"personal access token" in github developer settings.
+</p>
+
+<p>
+I have this password written somewhere, find it.
+</p>
+
+<p>
+changing the token - <a href="https://stackoverflow.com/questions/46645843/where-to-store-my-git-personal-access-token">Explanation here</a>
+</p>
+
+<ol class="org-ol">
+<li>git config &#x2013;global &#x2013;replace-all credential.helper cache</li>
+<li>git config &#x2013;global credential.helper store</li>
+<li>try to push the code, enter arvydasg ir nauja token</li>
+</ol>
+
+<p>
+git config &#x2013;list (some info about you)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org121f99d" class="outline-3">
+<h3 id="org121f99d">ssh key method</h3>
+<div class="outline-text-3" id="text-org121f99d">
+<p>
+I have described it in SEB notes.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1d7cf0d" class="outline-3">
+<h3 id="org1d7cf0d">gpg key method</h3>
+<div class="outline-text-3" id="text-org1d7cf0d">
+<p>
+Tarlar gave some tutorials in SEB notes.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgff09e30" class="outline-2">
+<h2 id="orgff09e30">deploy a static website with github pages</h2>
+<div class="outline-text-2" id="text-orgff09e30">
+</div>
+<div id="outline-container-org8ac15fa" class="outline-3">
+<h3 id="org8ac15fa">Create the main username.github.io page</h3>
+<div class="outline-text-3" id="text-org8ac15fa">
+<p>
+The idea is - you have lot's of html pages(or a single html page).
+</p>
+
+<p>
+You add it(them) to github repo which is named
+<code>&lt;yourgithubusername@github.io&gt;</code>. In my case -
+<a href="https://github.com/arvydasg/arvydasg.github.io">https://github.com/arvydasg/arvydasg.github.io</a>.
+</p>
+
+<p>
+Then in <code>repo settings -&gt; pages</code> you specify that you want master branch to be
+deployed to github pages. After a few minutes you can go to
+<code>&lt;yourgithubusername@github.io&gt;</code>. In my case it is <a href="https://arvydasg.github.io/">https://arvydasg.github.io/</a>.
+Wait 5 minutes, do a hard browser refresh and you should see the page.
+</p>
+
+<p>
+If I have a domain name, I can then specify it in repo settings as well. In my
+case it is <code>arvydas.dev</code>. You might need to do some configuration on domain
+side also to link to github. Probably <a href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site">this</a> guide could help with that.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7cdb59b" class="outline-3">
+<h3 id="org7cdb59b">create subpages for username.github.io</h3>
+<div class="outline-text-3" id="text-org7cdb59b">
+<p>
+So you have <code>&lt;yourgithubusername@github.io&gt;</code> website up and running. But you
+want to deploy another page. You can do that by creating another repo(any name
+now, for example a repo called <code>teddybears</code>), repo settings -&gt; pages and choose
+master branch, save, save and after 5 minutes or so it will display the
+contents of your teddybears repo under
+<code>&lt;yourgithubusername@github.io/teddybears&gt;</code>.
+</p>
+
+<p>
+Amazing. I have codeacademy setup this way -
+<a href="https://github.com/arvydasg/codeacademy">https://github.com/arvydasg/codeacademy</a>
+</p>
+
+<p>
+I have also just <span class="timestamp-wrapper"><span class="timestamp">[2023-12-12 Tue] </span></span> created devnotes repo -
+<a href="https://github.com/arvydasg/devnotes">https://github.com/arvydasg/devnotes</a> and it is already live. Cool!
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2023-12-13 Wed 00:00</p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 29.1 (<a href="https://orgmode.org">Org</a> mode 9.6.6)</p>
+</div>
+</body>
+</html>

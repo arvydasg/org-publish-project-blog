@@ -1,0 +1,6 @@
+#+title: Index
+#+date: [2023-12-13 Wed]
+
+* Index
+
+Hello this is the index page. Please visit [[file:sitemap.org][sitemap]] for more posts.

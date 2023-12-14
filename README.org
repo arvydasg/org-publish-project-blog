@@ -1,0 +1,21 @@
+To use this.
+
+1. fill the /org directory with .org files
+2. launch ./build.sh script to generate the .html files in /html directory
+   (make sure it has execution permissions =chmod +x build.sh=)
+
+Did not want to clutter the original emacs config, that is why I did not put
+the =build-site.el= contents in the original emacs config. This is also easier
+to maintain I think, you always know how to build your website no matter where
+you are.
+
+To publish the changes - push to git, make sure github pages option is enabled
+in the repo.
+
+Navigate to [[arvydasg.github.io/org-static-blog/html/index.html][arvydasg.github.io/org-publish-project/html/index.html]] and you should
+see this blog. You can open this blog locally also, but all the links will lead
+to to [[/org-static-blog/html/index.html][arvydasg.github.io]].
+
+If we put html files inside the same location as README.org file, then we would
+not have the =/html/= part in the url, which is nicer. But from the backend,
+having a html folder is nicer and cleaner.
