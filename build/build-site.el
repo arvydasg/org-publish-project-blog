@@ -1,37 +1,37 @@
-;; HTMLIZE for sytanx highlighting START -------------------------------------
-;; more in David's blog about publishing with org
+;; ;; HTMLIZE for sytanx highlighting START -------------------------------------
+;; ;; more in David's blog about publishing with org
 
-;; Set the package installation directory so that packages aren't stored in the
-;; ~/.emacs.d/elpa path.
-(require 'package)
-(setq package-user-dir (expand-file-name "./.packages"))
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-			 ("elpa" . "https://elpa.gnu.org/packages/")))
+;; ;; Set the package installation directory so that packages aren't stored in the
+;; ;; ~/.emacs.d/elpa path.
+;; (require 'package)
+;; (setq package-user-dir (expand-file-name "./.packages"))
+;; (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+;;			 ("elpa" . "https://elpa.gnu.org/packages/")))
 
-;; Initialize the package system
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
+;; ;; Initialize the package system
+;; (package-initialize)
+;; (unless package-archive-contents
+;;   (package-refresh-contents))
 
-;; Install dependencies
-(package-install 'htmlize)
+;; ;; Install dependencies
+;; (package-install 'htmlize)
 
-;; HTMLIZE for sytanx highlighting END -------------------------------------
+;; ;; HTMLIZE for sytanx highlighting END -------------------------------------
 
 ;; Load the publishing system
 (require 'ox-publish)
 
-;; Customize the HTML output
-(setq org-html-validation-link nil            ; Don't show validation link
-      org-html-head-include-scripts nil       ; don't use default scripts
-      org-html-head-include-default-style nil ; don't ise default styles
-      )
+;; ;; Customize the HTML output
+;; (setq org-html-validation-link nil            ; Don't show validation link
+;;       org-html-head-include-scripts nil       ; don't use default scripts
+;;       org-html-head-include-default-style nil ; don't ise default styles
+;;       )
 
 ;; HEAD of the site(meta)
-(setq org-html-head
-      "<link rel=\"stylesheet\"
-href=\"https://cdn.simplecss.org/simple.min.css\" />"
-)
+;; (setq org-html-head
+;;       "<link rel=\"stylesheet\"
+;; href=\"https://cdn.simplecss.org/simple.min.css\" />"
+;; )
 
 ;; ;; PREAMBLE(nav)
 ;; (setq org-html-preamble-format
@@ -78,11 +78,11 @@ href=\"https://cdn.simplecss.org/simple.min.css\" />"
 	 :base-extension "org"
 	 :publishing-function org-html-publish-to-html ;tells Org that we want to publish the files as HTML
 	 :recursive t			;tells Org to publish .org files under all subdirectories of :base-directory
-	 :with-author nil           ; Don't include author name
-	 :with-creator t            ; Include Emacs and Org versions in footer
-	 :with-toc t                ; Include a table of contents
-	 :section-numbers nil       ; Don't include section numbers
-	 :time-stamp-file nil    ; Don't include time stamp in file
+	 ;; :with-author nil           ; Don't include author name
+	 ;; :with-creator t            ; Include Emacs and Org versions in footer
+	 ;; :with-toc t                ; Include a table of contents
+	 ;; :section-numbers nil       ; Don't include section numbers
+	 ;; :time-stamp-file nil    ; Don't include time stamp in file
 	 :auto-sitemap t			;creates sitemap, a place with all the links
 )
 	("build-site.el" :components ("my-org-site"))))

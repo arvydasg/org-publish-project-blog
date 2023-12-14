@@ -3,12 +3,196 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
+<!-- 2023-12-14 Thu 05:17 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>NixOS</title>
+<meta name="author" content="nixos" />
 <meta name="generator" content="Org Mode" />
-<link rel="stylesheet"
-href="https://cdn.simplecss.org/simple.min.css" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
 </head>
 <body>
 <div id="content" class="content">
@@ -17,20 +201,20 @@ href="https://cdn.simplecss.org/simple.min.css" />
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3a4fa53">Why NixOS</a></li>
-<li><a href="#orgb775769">Why NixOS by others</a></li>
-<li><a href="#org4d3c90a">Documentation</a></li>
-<li><a href="#org54e5ee0">Installation on WSL</a></li>
-<li><a href="#org39d9e74">Configure the installation over emacs</a></li>
-<li><a href="#org455b06f">Using your own custom nixos configuration file</a></li>
-<li><a href="#orgb678c61">Setting up git</a></li>
+<li><a href="#org3a4fa53">1. Why NixOS</a></li>
+<li><a href="#orgb775769">2. Why NixOS by others</a></li>
+<li><a href="#org4d3c90a">3. Documentation</a></li>
+<li><a href="#org54e5ee0">4. Installation on WSL</a></li>
+<li><a href="#org39d9e74">5. Configure the installation over emacs</a></li>
+<li><a href="#org455b06f">6. Using your own custom nixos configuration file</a></li>
+<li><a href="#orgb678c61">7. Setting up git</a></li>
 </ul>
 </div>
 </div>
 
 <div id="outline-container-org3a4fa53" class="outline-2">
-<h2 id="org3a4fa53">Why NixOS</h2>
-<div class="outline-text-2" id="text-org3a4fa53">
+<h2 id="org3a4fa53"><span class="section-number-2">1.</span> Why NixOS</h2>
+<div class="outline-text-2" id="text-1">
 <p>
 AFTER you reinstall your computer - to install the DEV environment, all you
 have to take with you is <code>/etc/nixos/configuration.nix</code> file, everything is
@@ -44,8 +228,8 @@ Avoid long reinstall &amp; config process
 </div>
 
 <div id="outline-container-orgb775769" class="outline-2">
-<h2 id="orgb775769">Why NixOS by others</h2>
-<div class="outline-text-2" id="text-orgb775769">
+<h2 id="orgb775769"><span class="section-number-2">2.</span> Why NixOS by others</h2>
+<div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li><a href="https://github.com/hlissner/dotfiles">https://github.com/hlissner/dotfiles</a></li>
 <li><a href="https://github.com/terlar/nix-config">https://github.com/terlar/nix-config</a></li>
@@ -54,8 +238,8 @@ Avoid long reinstall &amp; config process
 </div>
 
 <div id="outline-container-org4d3c90a" class="outline-2">
-<h2 id="org4d3c90a">Documentation</h2>
-<div class="outline-text-2" id="text-org4d3c90a">
+<h2 id="org4d3c90a"><span class="section-number-2">3.</span> Documentation</h2>
+<div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li>nixos github repo - <a href="https://github.com/nix-community/NixOS-WSL">https://github.com/nix-community/NixOS-WSL</a></li>
 <li>nixos manual - <a href="https://nixos.org/manual/nix/stable/">https://nixos.org/manual/nix/stable/</a></li>
@@ -64,8 +248,8 @@ Avoid long reinstall &amp; config process
 </div>
 
 <div id="outline-container-org54e5ee0" class="outline-2">
-<h2 id="org54e5ee0">Installation on WSL</h2>
-<div class="outline-text-2" id="text-org54e5ee0">
+<h2 id="org54e5ee0"><span class="section-number-2">4.</span> Installation on WSL</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 Steps described here:
 </p>
@@ -82,7 +266,7 @@ But basically download nixos-wsl.tar.gz into your windows /Download folder
 Then in CMD run(while in /Downloads folder):
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">wsl --import NixOS .\NixOS<span style="font-style: italic;">\ </span>nixos-wsl.tar.gz --version 2
+<pre class="src src-bash">wsl --import NixOS .\NixOS\ nixos-wsl.tar.gz --version 2
 </pre>
 </div>
 
@@ -115,8 +299,8 @@ sudo nix-channel --update
 </div>
 
 <div id="outline-container-org39d9e74" class="outline-2">
-<h2 id="org39d9e74">Configure the installation over emacs</h2>
-<div class="outline-text-2" id="text-org39d9e74">
+<h2 id="org39d9e74"><span class="section-number-2">5.</span> Configure the installation over emacs</h2>
+<div class="outline-text-2" id="text-5">
 <p>
 Enter nix-shell to use emacs(it does not get installed on the system, just
 <a href="https://nix.dev/tutorials/first-steps/ad-hoc-shell-environments">TEMPORARILY</a> FROM NIXOS CACHE?). So I can then modify the
@@ -178,10 +362,10 @@ Clone the dotfiles repo:
 </p>
 <div class="org-src-container">
 <pre class="src src-bash">mkdir ~/GIT
-<span style="font-weight: bold;">cd</span> ~/GIT
+cd ~/GIT
 git clone https://github.com/arvydasg/dotfiles
 ln -s GIT/dotfiles/.emacs.d/ ~/.emacs.d
-<span style="font-weight: bold;">cd</span> ~/.emacs.d
+cd ~/.emacs.d
 git update-index --assume-unchanged init.el
 </pre>
 </div>
@@ -193,8 +377,8 @@ Try to launch emacs for all the packages to be installed.
 </div>
 
 <div id="outline-container-org455b06f" class="outline-2">
-<h2 id="org455b06f">Using your own custom nixos configuration file</h2>
-<div class="outline-text-2" id="text-org455b06f">
+<h2 id="org455b06f"><span class="section-number-2">6.</span> Using your own custom nixos configuration file</h2>
+<div class="outline-text-2" id="text-6">
 <p>
 It suchs to not be able to edit the <code>/etc/nixos/configuration.nix</code> file over
 emacs as nixos default user. I want this file to not be owned by root, but bu
@@ -202,9 +386,9 @@ nixos user. So what we will do is we will:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash"><span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">delete current nixos directory</span>
+<pre class="src src-bash"># delete current nixos directory
 sudo rm -rf /etc/nixos
-<span style="font-weight: bold; font-style: italic;"># </span><span style="font-weight: bold; font-style: italic;">put our config folder instead of the default one</span>
+# put our config folder instead of the default one
 sudo ln -s ~/GIT/dotfiles/nixos/ /etc/nixos
 </pre>
 </div>
@@ -216,8 +400,8 @@ You are done. Should be able to edit <code>configuration.nix</code> file now.
 </div>
 
 <div id="outline-container-orgb678c61" class="outline-2">
-<h2 id="orgb678c61">Setting up git</h2>
-<div class="outline-text-2" id="text-orgb678c61">
+<h2 id="orgb678c61"><span class="section-number-2">7.</span> Setting up git</h2>
+<div class="outline-text-2" id="text-7">
 <p>
 <code>Introduce yourself to git</code> in  . Any of those methods. Will go the personal access
 token route this time.
@@ -227,7 +411,9 @@ token route this time.
 </div>
 <div id="postamble" class="status">
 <p class="date">Date: 2023-12-13 Wed 00:00</p>
-<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 29.1 (<a href="https://orgmode.org">Org</a> mode 9.6.6)</p>
+<p class="author">Author: nixos</p>
+<p class="date">Created: 2023-12-14 Thu 05:17</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>
