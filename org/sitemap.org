@@ -1,9 +1,6 @@
 #+TITLE: Sitemap for project my-org-site
 
 - [[file:alpine.org][Alpine]]
-- [[file:emacs.org][Emacs]]
-- [[file:git.org][Git]]
 - [[file:hugo.org][Hugo]]
 - [[file:index.org][Index]]
-- [[file:manjaro.org][Manjaro]]
 - [[file:nixos.org][NixOS]]

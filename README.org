@@ -12,9 +12,10 @@ you are.
 To publish the changes - push to git, make sure github pages option is enabled
 in the repo.
 
-Navigate to [[arvydasg.github.io/org-static-blog/html/index.html][arvydasg.github.io/org-publish-project/html/index.html]] and you should
-see this blog. You can open this blog locally also, but all the links will lead
-to to [[/org-static-blog/html/index.html][arvydasg.github.io]].
+Navigate to
+https://arvydasg.github.io/org-publish-project-blog/html/sitemap.html and you
+should see this blog. You can open this blog locally also, but all the links
+will lead to to [[/org-static-blog/html/index.html][arvydasg.github.io]].
 
 If we put html files inside the same location as README.org file, then we would
 not have the =/html/= part in the url, which is nicer. But from the backend,
