@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2023-12-16 Sat 18:03 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>make denote faster on wsl</title>
+<meta name="author" content="Arvydas G." />
+<meta name="description" content="welcome to my site" />
+<meta name="keywords" content="emacs antanas geles" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="../static/style.css" type="text/css"/>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="sitemap.html"> HOME </a>
+</div><div id="preamble" class="status">
+<div id="created">Page creation date(kodel 3
+	 skirtingos datos???): 2023-12-14 Thu 16:06</div>
+</div>
+<div id="content" class="content">
+<header>
+<h1 class="title">make denote faster on wsl</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgb2f0792">1. My question to chatgpt <span class="timestamp-wrapper"><span class="timestamp">&lt;2023-11-26 Sun&gt;</span></span>.</a></li>
+<li><a href="#orgfc20b5e">2. Solution not worth considering</a></li>
+<li><a href="#org0159120">3. Temporary working solution</a></li>
+<li><a href="#org1b9b4ad">4. Permanent working solution</a>
+<ul>
+<li><a href="#org80e049e">4.1. Option 1 - use <code>cp</code> command to copy</a></li>
+<li><a href="#org4574ac2">4.2. Option 2(final) - Use <code>rsync</code> command</a></li>
+<li><a href="#org2ffb544">4.3. Update <code>.bashrc</code> file to copy automatically</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+<p>
+Before this change the denote notes were stored on Windows system and it would take
+time for them to get fetched and opened on Emacs that runs in WSL. Each denote
+command or simply opening a file would take longer than usual. This was
+annoying.
+</p>
+
+<p>
+So I have moved all the denote note files to WSL. Then created a script that
+would copy all the note files into windows machine, onedrive folder, for them
+to be synced to my onedrive cloud. This will act as a security measure in case
+I forget to commit my notes to git and my machine dies. I will still have a
+quite recent copy of the notes in OneDrive.
+</p>
+
+<div id="outline-container-orgb2f0792" class="outline-2">
+<h2 id="orgb2f0792"><span class="section-number-2">1.</span> <a href="#orgb2f0792">My question to chatgpt <span class="timestamp-wrapper"><span class="timestamp">&lt;2023-11-26 Sun&gt;</span></span>.</a></h2>
+<div class="outline-text-2" id="text-1">
+<blockquote>
+<p>
+I have lots of .org files, I currently store them on my window's
+machine, onedrive folder. So they are backed up to the cloud.
+</p>
+
+<p>
+I want to use those notes in a text editor called emacs. But when I
+ntry to reach the notes over wsl, I must go this path to reach them on
+windows - /mnt/c/user/xxx/org-notes to
+</p>
+
+<p>
+this loads the notes very slowly compared if they were on wsl
+directly.
+</p>
+
+<p>
+How can I BOTH have the files load quickly, same as if they were on my
+wsl AND have those files in google cloud?
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-orgfc20b5e" class="outline-2">
+<h2 id="orgfc20b5e"><span class="section-number-2">2.</span> <a href="#orgfc20b5e">Solution not worth considering</a></h2>
+<div class="outline-text-2" id="text-2">
+<p>
+I heard that you can create a symlink from windows to wsl. I tried doing that:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash"># open cmd as admin
+cd /d C:\Users\arvydas\OneDrive\Documents
+mklink /D HELLO \\wsl.localhost\Ubuntu\home\arvy\.emacs.d\EMACS_DALYKAI
+</pre>
+</div>
+
+<p>
+That worked, symlink was created, but then I started to think what would happen
+if I delete WSL. All my notes will also be deleted. Meaning that the symlink
+will point to nowhere. Not good. Ditched this idea.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0159120" class="outline-2">
+<h2 id="org0159120"><span class="section-number-2">3.</span> <a href="#org0159120">Temporary working solution</a></h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Create a symbolic link within WSL that points directly to your
+OneDrive folder:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">ln -s /mnt/c/Users/xxx/org-notes /path/in/WSL/org-notes
+</pre>
+</div>
+
+<p>
+This will enable a little bit faster access to your OneDrive-stored
+.org files within WSL.
+</p>
+
+<p>
+Yes, I think it is faster. Notes are created and opened faster.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1b9b4ad" class="outline-2">
+<h2 id="org1b9b4ad"><span class="section-number-2">4.</span> <a href="#org1b9b4ad">Permanent working solution</a></h2>
+<div class="outline-text-2" id="text-4">
+<p>
+What I will do is create a shell script that will automatically run on each wsl
+launch. It will copy the files from wsl notes dir to OneDrive notes dir.
+</p>
+
+<p>
+commit - 2ba4f55
+</p>
+</div>
+
+<div id="outline-container-org80e049e" class="outline-3">
+<h3 id="org80e049e"><span class="section-number-3">4.1.</span> <a href="#org80e049e">Option 1 - use <code>cp</code> command to copy</a></h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Shell script lies in:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">~/.emacs.d/MISC/copy_to_onedrive.sh
+</pre>
+</div>
+
+<p>
+Can use a simple copy method to copy the files:
+</p>
+
+<ul class="org-ul">
+<li>no progress</li>
+<li>no exclusion of directories</li>
+<li>takes everything, not only what has changed</li>
+<li>can not show stats of the run</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-bash">cp -r GIT/notes/* /mnt/c/Users/arvydas/OneDrive/Documents/notes/
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4574ac2" class="outline-3">
+<h3 id="org4574ac2"><span class="section-number-3">4.2.</span> <a href="#org4574ac2">Option 2(final) - Use <code>rsync</code> command</a></h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Or can use <code>Rsycn</code> - it performs synchronization between source and
+destination. It copies only the differences between the source and destination
+files. It checks file timestamps and sizes to determine which files need to be
+updated
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">rsync -ah --progress --delete --exclude='.git' GIT/notes/ /mnt/c/Users/arvydas/OneDrive/Documents/notes/ --stats
+</pre>
+</div>
+
+<p>
+Then make this file executable:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">chmod +x .emacs.d/MISC/copy_to_onedrive.sh
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2ffb544" class="outline-3">
+<h3 id="org2ffb544"><span class="section-number-3">4.3.</span> <a href="#org2ffb544">Update <code>.bashrc</code> file to copy automatically</a></h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+Add the script execution to your .bashrc
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">echo '~/.emacs.d/MISC/copy_to_onedrive.sh' &gt;&gt; ~/.bashrc
+</pre>
+</div>
+
+<p>
+Now the script will be run with <code>source .bashrc</code> AKA with each launch of wsl.
+Which is maybe more than we need, but good anyway.
+</p>
+
+<p>
+Whenever I launch wsl I will be able to see the progress of the rsynch copying
+procedure.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Arvydas G. (<a href="mailto:arvydas.gaspa@gmail.com">arvydas.gaspa@gmail.com</a>)</p>
+<p class="date">Date: 2023-11-26 Sun 01:20</p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 29.1 (<a href="https://orgmode.org">Org</a> mode 9.6.6)</p>
+<p class="validation"></p>
+</div>
+<script>window.klipse_settings = {selector_eval_html: '.src-html',
+                             selector_eval_js: '.src-js',
+                             selector_eval_python_client: '.src-python',
+                             selector_eval_scheme: '.src-scheme',
+                             selector: '.src-clojure',
+                             selector_eval_ruby: '.src-ruby'};</script><script src="https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js"></script><link rel="stylesheet" type="text/css" href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css"/></body>
+</html>

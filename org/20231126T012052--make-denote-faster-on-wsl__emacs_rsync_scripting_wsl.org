@@ -1,0 +1,118 @@
+#+title:      make denote faster on wsl
+#+date:       [2023-11-26 Sun 01:20]
+#+filetags:   :emacs:rsync:scripting:wsl:
+#+identifier: 20231126T012052
+#+STARTUP:    overview
+
+Before this change the denote notes were stored on Windows system and it would take
+time for them to get fetched and opened on Emacs that runs in WSL. Each denote
+command or simply opening a file would take longer than usual. This was
+annoying.
+
+So I have moved all the denote note files to WSL. Then created a script that
+would copy all the note files into windows machine, onedrive folder, for them
+to be synced to my onedrive cloud. This will act as a security measure in case
+I forget to commit my notes to git and my machine dies. I will still have a
+quite recent copy of the notes in OneDrive.
+
+* My question to chatgpt <2023-11-26 Sun>.
+
+#+begin_quote
+I have lots of .org files, I currently store them on my window's
+machine, onedrive folder. So they are backed up to the cloud.
+
+I want to use those notes in a text editor called emacs. But when I
+ntry to reach the notes over wsl, I must go this path to reach them on
+windows - /mnt/c/user/xxx/org-notes to
+
+this loads the notes very slowly compared if they were on wsl
+directly.
+
+How can I BOTH have the files load quickly, same as if they were on my
+wsl AND have those files in google cloud?
+#+end_quote
+
+* Solution not worth considering
+
+I heard that you can create a symlink from windows to wsl. I tried doing that:
+
+#+begin_src bash
+  # open cmd as admin
+  cd /d C:\Users\arvydas\OneDrive\Documents
+  mklink /D HELLO \\wsl.localhost\Ubuntu\home\arvy\.emacs.d\EMACS_DALYKAI
+#+end_src
+
+That worked, symlink was created, but then I started to think what would happen
+if I delete WSL. All my notes will also be deleted. Meaning that the symlink
+will point to nowhere. Not good. Ditched this idea.
+
+* Temporary working solution
+
+Create a symbolic link within WSL that points directly to your
+OneDrive folder:
+
+#+begin_src bash
+  ln -s /mnt/c/Users/xxx/org-notes /path/in/WSL/org-notes
+#+end_src
+
+This will enable a little bit faster access to your OneDrive-stored
+.org files within WSL.
+
+Yes, I think it is faster. Notes are created and opened faster.
+
+* Permanent working solution
+
+What I will do is create a shell script that will automatically run on each wsl
+launch. It will copy the files from wsl notes dir to OneDrive notes dir.
+
+commit - 2ba4f55
+
+** Option 1 - use ~cp~ command to copy
+
+Shell script lies in:
+
+#+begin_src bash
+  ~/.emacs.d/MISC/copy_to_onedrive.sh
+#+end_src
+
+Can use a simple copy method to copy the files:
+
+- no progress
+- no exclusion of directories
+- takes everything, not only what has changed
+- can not show stats of the run
+
+#+begin_src bash
+  cp -r GIT/notes/* /mnt/c/Users/arvydas/OneDrive/Documents/notes/
+#+end_src
+
+** Option 2(final) - Use ~rsync~ command
+
+Or can use ~Rsycn~ - it performs synchronization between source and
+destination. It copies only the differences between the source and destination
+files. It checks file timestamps and sizes to determine which files need to be
+updated
+
+#+begin_src bash
+  rsync -ah --progress --delete --exclude='.git' GIT/notes/ /mnt/c/Users/arvydas/OneDrive/Documents/notes/ --stats
+#+end_src
+
+Then make this file executable:
+
+#+begin_src bash
+  chmod +x .emacs.d/MISC/copy_to_onedrive.sh
+#+end_src
+
+** Update ~.bashrc~ file to copy automatically
+
+Add the script execution to your .bashrc
+
+#+begin_src bash
+  echo '~/.emacs.d/MISC/copy_to_onedrive.sh' >> ~/.bashrc
+#+end_src
+
+Now the script will be run with ~source .bashrc~ AKA with each launch of wsl.
+Which is maybe more than we need, but good anyway.
+
+Whenever I launch wsl I will be able to see the progress of the rsynch copying
+procedure.

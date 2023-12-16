@@ -1,14 +1,28 @@
 #+title: Alpine
 #+date: [2023-12-13 Wed]
 
-* Alpine
+* Alpine                                                               :tag1:
+SCHEDULED: <2023-12-16 Sat>
 
-INSTALLATION GUIDE
+=INSTALLATION GUIDE=
 
-- install virtual machine with 1gb and 10gb
+- *bold text* install virtual /underlined text/ machine with 1gb and 10gb
 - ping google.com for internet connection
 - apk add sudo (might not need this, just enable community first)
+- timestamp active [2023-12-16 Sat]
+- timestamp inactive <2023-12-16 Sat>
 - sudo apk add htop
+- test_underscore_test
 - vi /etc/apk/repositories - enable community one
-- apk update
+- apk[fn:1] update
 - sudo apk add emacs
+- entities test \alpha
+
+
+huh what is this
+
+:huh what is this 2
+
+* Footnotes
+
+[fn:1]this is a footnote dude, how cool is that.

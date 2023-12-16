@@ -1,0 +1,24 @@
+#+title:      django reduce number of queries to db
+#+date:       [2023-11-28 Tue 13:21]
+#+filetags:   :django:sql:
+#+identifier: 20231128T132126
+
+* DjangoCon Europe 2023 | Squeezing Django performance for 14.9 million users on WhatsApp
+
+Watched on [2023-11-09 Thu]
+
+https://www.youtube.com/watch?v=A_bkbAv9TQs&ab_channel=DjangoConEurope
+
+Reduce the number of queries happening to the db.
+
+asertNumQueries - make sure the queries do not exceed the limit that
+you have set. 20:39. Labai geras dalykas manau. Testa toki pasikurti.
+Kad dalykai letai neloadintu.
+
+~log_min_duration_statement~ - postgress db will LOG any queries that take
+longer than you want.
+
+locust for measuring performance. Specify how many users you want to
+make how many requests per second.
+
+faker to fake data and not use production data.

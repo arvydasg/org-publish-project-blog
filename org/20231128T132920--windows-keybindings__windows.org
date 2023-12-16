@@ -1,0 +1,14 @@
+#+title:      windows keybindings
+#+date:       [2023-11-28 Tue 13:29]
+#+filetags:   :windows:
+#+identifier: 20231128T132920
+
+Lots of shortcuts already in my head, but some that are new are:
+
+- win + ctrl + t - always on top window
+- alt + space - look for programs
+- win + shift + / - ALL SHORTCUTS
+- win+shift+T - TEXT EXTRACTOR WTF??!!
+
+Install =powertoys= app in windows for rebinding various keys, especially caps
+-> ctrl

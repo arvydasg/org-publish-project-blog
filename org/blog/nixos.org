@@ -48,7 +48,7 @@ able to use =nixos-rebuild=:
   sudo nix-channel --update
 #+end_src
 
-* Configure the installation over emacs
+** Configure the installation over emacs
 
 Enter nix-shell to use emacs(it does not get installed on the system, just
 [[https://nix.dev/tutorials/first-steps/ad-hoc-shell-environments][TEMPORARILY]] FROM NIXOS CACHE?). So I can then modify the
@@ -99,7 +99,7 @@ Clone the dotfiles repo:
 
 Try to launch emacs for all the packages to be installed.
 
-* Using your own custom nixos configuration file
+*** Using your own custom nixos configuration file
 
 It suchs to not be able to edit the =/etc/nixos/configuration.nix= file over
 emacs as nixos default user. I want this file to not be owned by root, but bu
@@ -114,7 +114,9 @@ nixos user. So what we will do is we will:
 
 You are done. Should be able to edit =configuration.nix= file now.
 
-* Setting up git
+*** Setting up git
 
 =Introduce yourself to git= in  . Any of those methods. Will go the personal access
 token route this time.
+
+HELLO

@@ -4,3 +4,13 @@
 * Index
 
 Hello this is the index page. Please visit [[file:sitemap.org][sitemap]] for more posts.
+
+#+CAPTION: Sample Table with Random Data
+| Name      | Age | Occupation  | Location      | Experience |
+|-----------+-----+------------+-------------+-----------|
+| John Doe   |  27 | Engineer    | New York     | 5 years    |
+| Jane Smith  |  35 | Data Analyst | San Francisco | 8 years    |
+| Alex Lee   |  31 | Designer    | Los Angeles   | 6 years    |
+| Emily Chen |  29 | Developer   | Chicago      | 4 years    |
+
+* TODO this and that seniux

@@ -1,0 +1,22 @@
+#+title:      org clock report
+#+date:       [2023-11-26 Sun 00:54]
+#+filetags:   :emacs:
+#+identifier: 20231126T005411
+
+Was useful in obelsdumas times when I wanted to track how much time I used on
+building and working on the project. Padaryti isklotines su laiku kiek dirbau
+prie ko ir pan.
+
+Link to the docs - https://orgmode.org/manual/The-clock-table.html
+
+* examples
+
+[2022-04-10 Sun] Daily org-diary file report BY TAG
+#+begin_src emacs-lisp
+  #+BEGIN: clocktable :maxlevel 3 :scope file :tags t :sort (1 . ?a) :emphasize t :narrow 100! :match "emacs"
+#+end_src
+
+[2022-04-10 Sun] Daily org-diary file report without tag, show all tasks
+#+begin_src emacs-lisp
+  #+BEGIN: clocktable :maxlevel 3 :scope file :tags t :sort (1 . ?a) :emphasize t :narrow 100!
+#+end_src

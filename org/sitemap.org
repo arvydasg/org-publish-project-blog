@@ -1,6 +1,11 @@
-#+TITLE: Sitemap for project my-org-site
+#+TITLE: all the pages
 
-- [[file:alpine.org][Alpine]]
-- [[file:hugo.org][Hugo]]
 - [[file:index.org][Index]]
-- [[file:nixos.org][NixOS]]
+- [[file:alpine.org][Alpine]]
+- [[file:20231128T132920--windows-keybindings__windows.org][windows keybindings]]
+- [[file:20231128T132126--django-reduce-number-of-queries-to-db__django_sql.org][django reduce number of queries to db]]
+- [[file:20231126T012052--make-denote-faster-on-wsl__emacs_rsync_scripting_wsl.org][make denote faster on wsl]]
+- [[file:20231126T005411--org-clock-report__emacs.org][org clock report]]
+- blog
+  - [[file:blog/nixos.org][NixOS]]
+  - [[file:blog/hugo.org][Hugo]]
